@@ -48,7 +48,7 @@
     <frontend.testFailureIgnore>${maven.test.failure.ignore}</frontend.testFailureIgnore>
     <!-- FailureHandler -->
     <useBeta>true</useBeta>
-    <hpi.bundledArtifacts>diff4j,groovy-cps</hpi.bundledArtifacts>
+    <hpi.bundledArtifacts>diff4j,groovy-cps,snakeyaml</hpi.bundledArtifacts>
     <hpi.strictBundledArtifacts>true</hpi.strictBundledArtifacts>
   </properties>
   <dependencyManagement>
@@ -263,6 +263,11 @@
           <artifactId>slf4j-api</artifactId>
         </exclusion>
       </exclusions>
+    </dependency>
+    <dependency>
+        <groupId>org.yaml</groupId>
+        <artifactId>snakeyaml</artifactId>
+        <version>2.0</version>
     </dependency>
   </dependencies>
   <build>
