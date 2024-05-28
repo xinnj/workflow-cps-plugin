@@ -154,6 +154,7 @@ import org.jenkinsci.plugins.workflow.graph.FlowGraphWalker;
 import org.kohsuke.accmod.restrictions.DoNotUse;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.yaml.snakeyaml.Yaml;
 
 /**
  * {@link FlowExecution} implemented with Groovy CPS.
@@ -415,6 +416,18 @@ public class CpsFlowExecution extends FlowExecution implements BlockableResume {
     }
 
     public CpsFlowExecution(@NonNull String script, boolean sandbox, @NonNull  FlowExecutionOwner owner, @CheckForNull FlowDurabilityHint durabilityHint) throws IOException {
+        boolean isYaml = true;
+        Yaml yaml = new Yaml();
+        try {
+            yaml.load(script);
+        } catch (Exception e) {
+            isYaml = false;
+        }
+
+        if (isYaml) {
+            script = "String config = \"\"\"\n" + script + "\n\"\"\"\n" + "pipelineFactory.call(config)";
+        }
+
         this.owner = owner;
         this.script = script;
         this.sandbox = sandbox;
