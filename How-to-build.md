@@ -1,0 +1,1 @@
+mvn package -DskipTests "-Dplugin.version.description=tag: "
